@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Literature</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Literature</h1>
+    <ul id="file-list"></ul>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'literature/', // Путь к папке literature
+                success: function(data) {
+                    $(data).find("a[href$='.pdf']").each(function() {
+                        var filename = this.href.replace(window.location.host, '').replace('http://', ''); // Получение имени файла
+                        $("#file-list").append("<li><a href='" + this.href + "'>" + filename + "</a></li>"); // Отображение файла как ссылки
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
