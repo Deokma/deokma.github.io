@@ -2,6 +2,35 @@
 <html>
 <head>
     <title>Literature</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
@@ -10,14 +39,18 @@
 
     <script>
         $(document).ready(function() {
-            $.ajax({
-                url: 'literature/', // Путь к папке literature
-                success: function(data) {
-                    $(data).find("a[href$='.pdf']").each(function() {
-                        var filename = this.href.replace(window.location.host, '').replace('http://', ''); // Получение имени файла
-                        $("#file-list").append("<li><a href='" + this.href + "'>" + filename + "</a></li>"); // Отображение файла как ссылки
-                    });
-                }
+            var literatureUrl = 'https://deokma.github.io/literature/';
+            var apiUrl = 'https://api.github.com/repos/Deokma/deokma.github.io/contents/literature';
+
+            $.getJSON(apiUrl, function(data) {
+                $.each(data, function(index, file) {
+                    if (file.type === 'file') {
+                        var filename = file.name;
+                        var title = filename.replace('.pdf', ''); // Извлечение названия книги из имени файла
+                        var fileUrl = literatureUrl + filename;
+                        $("#file-list").append("<li><a href='" + fileUrl + "'>" + title + "</a></li>");
+                    }
+                });
             });
         });
     </script>
