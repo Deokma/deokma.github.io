@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>deokma.web — a personal corner of the internet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Varela+Round&family=Space+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<div id="root"></div>
+
+<template id="__bundler_thumbnail" data-bg-color="#6aa6e6">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#cfeaff"/><stop offset="1" stop-color="#4f86d8"/>
+      </linearGradient>
+      <radialGradient id="orb" cx="38%" cy="30%" r="70%">
+        <stop offset="0" stop-color="#ffffff"/><stop offset="42%" stop-color="#9be8ff"/><stop offset="100%" stop-color="#2f8fdd"/>
+      </radialGradient>
+    </defs>
+    <rect width="1200" height="800" fill="url(#bg)"/>
+    <rect x="360" y="250" width="480" height="300" rx="72" fill="url(#orb)"/>
+    <path d="M470 470a58 58 0 0 1 12-114 80 80 0 0 1 154 18 55 55 0 0 1 6 96z" fill="#ffffff" opacity="0.92"/>
+    <text x="600" y="640" font-family="Varela Round, sans-serif" font-size="64" font-weight="700" fill="#ffffff" text-anchor="middle">deokma.web</text>
+  </svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="image-slot.js"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="data.jsx"></script>
+<script type="text/babel" src="mediaplayer.jsx"></script>
+<script type="text/babel" src="sections2.jsx"></script>
+<script type="text/babel" src="shell.jsx"></script>
+<script type="text/babel" src="app2.jsx"></script>
+</body>
+</html>

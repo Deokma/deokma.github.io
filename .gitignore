@@ -1,0 +1,11 @@
+# OS / editor junk
+Thumbs.db
+.DS_Store
+.thumbnail
+
+# Local image-slot sidecar (runtime-only, not served as part of the site)
+*.image-slots.state.json
+.image-slots.state.json
+
+# Old prototype kept around for reference, not part of the published site
+_archive_os/
