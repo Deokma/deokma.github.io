@@ -2,33 +2,36 @@
 const { useState, useEffect, useRef, useCallback } = React;
 
 /* ── Theme system (shared with the material in site.css) ──────────────────── */
+/* Brushed-steel desktop palettes. Windows stay light in every theme; the wall
+   is a metallic gradient with a faint vertical "brushed" texture. */
+const BRUSH = "repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, rgba(30,60,100,.045) 2px 4px), ";
 const THEMES = {
-  dream: {
-    wall:"linear-gradient(177deg,#ffdcf2 0%,#e7ccff 28%,#c8cdff 54%,#aed8ff 80%,#a6f0ff 100%)",
-    glow:"radial-gradient(42% 30% at 80% 10%,rgba(255,255,255,.95),transparent 64%),radial-gradient(34% 26% at 14% 24%,rgba(255,214,246,.66),transparent 70%),radial-gradient(56% 42% at 58% 100%,rgba(176,228,255,.55),transparent 72%)",
-    glassRGB:"255,255,255", dark:false,
-    ink:"#2c2c55", inkSoft:"#4d4d78", inkFaint:"#8e8eb6",
-    edge:"rgba(255,255,255,.6)", chip:"rgba(255,255,255,.56)",
-    card:"rgba(255,255,255,.5)", cardHi:"rgba(255,255,255,.72)",
-    code:"rgba(120,110,200,.1)",
+  dream: { /* cool steel-blue (default) */
+    wall:BRUSH+"linear-gradient(180deg,#d4e2f0 0%,#aac4df 46%,#bdd1e7 100%)",
+    glow:"radial-gradient(42% 30% at 80% 8%,rgba(255,255,255,.7),transparent 64%),radial-gradient(56% 42% at 50% 100%,rgba(180,210,240,.4),transparent 74%)",
+    glassRGB:"250,253,255", dark:false,
+    ink:"#16283f", inkSoft:"#3a557a", inkFaint:"#6f86a0",
+    edge:"#7e9bbe", chip:"#e9f0f9",
+    card:"#eef4fb", cardHi:"#ffffff",
+    code:"#0a1020",
   },
-  sky: {
-    wall:"linear-gradient(178deg,#dcf5ff 0%,#a3dbff 30%,#5ea7e6 60%,#3f86cf 82%,#74c46b 100%)",
-    glow:"radial-gradient(36% 28% at 82% 11%,rgba(255,255,255,.97),transparent 62%),radial-gradient(64% 44% at 50% 100%,rgba(150,235,150,.46),transparent 72%),radial-gradient(26% 20% at 22% 26%,rgba(255,255,255,.55),transparent 70%)",
-    glassRGB:"255,255,255", dark:false,
-    ink:"#143049", inkSoft:"#2f5474", inkFaint:"#6c93b3",
-    edge:"rgba(255,255,255,.58)", chip:"rgba(255,255,255,.54)",
-    card:"rgba(255,255,255,.5)", cardHi:"rgba(255,255,255,.72)",
-    code:"rgba(40,110,170,.12)",
+  sky: { /* aqua-green steel */
+    wall:BRUSH+"linear-gradient(180deg,#d8f1ff 0%,#a6d4ec 44%,#a6cfdc 100%)",
+    glow:"radial-gradient(40% 28% at 82% 9%,rgba(255,255,255,.75),transparent 62%),radial-gradient(60% 44% at 50% 100%,rgba(160,225,200,.4),transparent 74%)",
+    glassRGB:"250,253,255", dark:false,
+    ink:"#10303a", inkSoft:"#2f5462", inkFaint:"#6c93a0",
+    edge:"#7ea6b4", chip:"#e9f4f7",
+    card:"#eef6f9", cardHi:"#ffffff",
+    code:"#08121f",
   },
-  twilight: {
-    wall:"linear-gradient(178deg,#081636 0%,#132a5c 40%,#274a8c 72%,#3f7bb0 100%)",
-    glow:"radial-gradient(52% 32% at 50% 4%,rgba(120,180,255,.4),transparent 70%),radial-gradient(40% 28% at 80% 20%,rgba(95,208,255,.34),transparent 72%),radial-gradient(64% 40% at 28% 100%,rgba(70,150,210,.38),transparent 74%)",
-    glassRGB:"20,34,72", dark:true,
-    ink:"#eaf3ff", inkSoft:"#bacfee", inkFaint:"#8099c2",
-    edge:"rgba(150,200,255,.24)", chip:"rgba(120,180,255,.16)",
-    card:"rgba(24,40,82,.5)", cardHi:"rgba(46,68,120,.55)",
-    code:"rgba(6,16,40,.55)",
+  twilight: { /* dusk lavender-steel */
+    wall:BRUSH+"linear-gradient(180deg,#cdd2ec 0%,#a9aedd 44%,#b6bce0 100%)",
+    glow:"radial-gradient(44% 30% at 50% 6%,rgba(255,255,255,.65),transparent 70%),radial-gradient(60% 42% at 28% 100%,rgba(180,180,235,.42),transparent 74%)",
+    glassRGB:"250,252,255", dark:false,
+    ink:"#241f44", inkSoft:"#473f6e", inkFaint:"#7a73a0",
+    edge:"#9088b8", chip:"#efecf8",
+    card:"#f2f0fa", cardHi:"#ffffff",
+    code:"#0c0a20",
   },
 };
 const ACCENTS = { violet:["#8a6fff","#6a4fe0"], sky:["#2f8fdd","#1f72be"], aqua:["#1cb39a","#0d8a76"], rose:["#ef6fb0","#c83a8c"] };
@@ -49,7 +52,7 @@ function buildVars(t) {
   };
 }
 
-const PALS = [["#ffdcf2","#c8cdff","#a6f0ff"],["#dcf5ff","#5ea7e6","#74c46b"],["#0e1b3e","#274a8c","#5fd0ff"]];
+const PALS = [["#d4e2f0","#aac4df","#7e9bbe"],["#d8f1ff","#a6d4ec","#7ea6b4"],["#cdd2ec","#a9aedd","#9088b8"]];
 const PAL_NAME = { 0:"dream", 1:"sky", 2:"twilight" };
 
 /* ── Decorative sky ───────────────────────────────────────────────────────*/
@@ -103,10 +106,10 @@ function useScrollSpy(ids, ready) {
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "theme": "dream",
-  "accent": "violet",
+  "accent": "sky",
   "glass": "aero",
   "font": "nunito",
-  "clouds": true
+  "clouds": false
 }/*EDITMODE-END*/;
 
 function Site() {
@@ -145,19 +148,10 @@ function Site() {
       <main>
         <Hero onJump={jump} />
 
-        {/* About-extras + jukebox row */}
-        <section className="wrap" style={{ paddingTop:18 }}>
+        {/* system.log terminal + jukebox row */}
+        <section className="wrap" style={{ paddingTop:14 }}>
           <div className="cols-2">
-            <div className="linkpanel glossy rise d1">
-              <h4 style={{ fontFamily:"var(--pixel)", fontSize:10, letterSpacing:".1em", textTransform:"uppercase", color:"var(--accent)", margin:"0 0 12px" }}>currently</h4>
-              {ABOUT.now.map((n,i)=>(
-                <div key={i} style={{ display:"flex", gap:12, padding:"9px 2px",
-                  borderTop: i ? "1px solid var(--edge)" : "none" }}>
-                  <span style={{ fontFamily:"var(--mono)", fontSize:11.5, color:"var(--accent)", width:62, flex:"0 0 auto" }}>{n.k}</span>
-                  <span style={{ fontSize:13.5, color:"var(--ink)", fontWeight:600 }}>{n.v}</span>
-                </div>
-              ))}
-            </div>
+            <div className="rise d1"><SystemLog /></div>
             <div className="rise d2"><Jukebox /></div>
           </div>
         </section>

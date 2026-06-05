@@ -1,5 +1,11 @@
-/* sections2.jsx — Projects / Notes / Links / Stuff as glossy web modules */
+/* sections2.jsx — Projects / Notes / Links / Stuff as Y2K desktop windows */
 const { useState: useStateX } = React;
+
+const PROJECT_ICONS = {
+  cloudpaint:"☁️", linklog:"🔗", boombox:"📻", frutiger:"💎",
+  tinytube:"📺", garden:"🌼", pixelpet:"🐱", webring:"🌐",
+};
+const STUFF_ICONS = { shot1:"🖥️", shot2:"☁️", shot3:"💾" };
 
 function SecHead({ icon, gel, label, title, count }) {
   return (
@@ -28,12 +34,12 @@ function ProjectsSection() {
 
   return (
     <section id="projects" className="section wrap">
-      <SecHead icon="projects" gel={GELS.projects} label="things i've made" title="Projects" count={PROJECTS.length+" modules · mostly unfinished"} />
+      <SecHead icon="projects" gel={GELS.projects} label="things i've made" title="projects" count={PROJECTS.length+" modules · mostly unfinished"} />
       <div className="grid-proj">
         {PROJECTS.map(pr=>(
           <button key={pr.id} className="pcard glossy" onClick={()=>setOpen(pr.id)}>
             <div className="top">
-              <FileBadge ext={pr.ext} status={pr.status} />
+              <span className="picon">{PROJECT_ICONS[pr.id] || "🗂️"}</span>
               <div className="nm">{pr.name}<em>{pr.ext}</em></div>
             </div>
             <div className="bl">{pr.blurb}</div>
@@ -49,39 +55,27 @@ function ProjectsSection() {
   );
 }
 
-function FileBadge({ ext, status }) {
-  const hue = { go:"#56cf8e", wip:"#ffb14d", dead:"#9aa6bf" }[status];
-  return (
-    <span style={{ position:"relative", display:"inline-block", width:42, height:38, flex:"0 0 auto" }}>
-      <span style={{ position:"absolute", inset:0, borderRadius:"3px 8px 8px 8px",
-        background:"linear-gradient(160deg,#fff,"+hue+" 165%)", border:"1px solid rgba(0,40,90,.25)",
-        boxShadow:"inset 0 1px 0 rgba(255,255,255,.9), 0 2px 6px rgba(20,40,90,.2)" }}></span>
-      <span style={{ position:"absolute", left:0, top:0, width:14, height:11, background:hue,
-        borderRadius:"3px 0 7px 0", boxShadow:"inset 0 1px 0 rgba(255,255,255,.5)" }}></span>
-      <span style={{ position:"absolute", left:0, right:0, bottom:5, fontFamily:"var(--pixel)", fontSize:7,
-        textAlign:"center", color:"rgba(10,40,90,.65)" }}>{(ext.replace(/[^a-z]/g,'').toUpperCase().slice(0,3))||"DIR"}</span>
-    </span>
-  );
-}
-
 function ProjectModal({ p, onClose }) {
   const slabel = { go:"running", wip:"in progress", dead:"abandoned, fondly" }[p.status];
   return (
     <div className="lb-back" onClick={onClose}>
       <div className="lb glossy" onClick={e=>e.stopPropagation()}>
-        <button className="x" onClick={onClose} aria-label="close">✕</button>
-        <div style={{ display:"flex", alignItems:"center", gap:13 }}>
-          <FileBadge ext={p.ext} status={p.status} />
-          <h3>{p.name}<em>{p.ext}</em></h3>
+        <div className="winbar on">
+          <span className="wb-ico">{Glyph.projects}</span>
+          <span className="wb-title">{p.name}{p.ext}</span>
+          <span className="wb-sp"></span>
+          <span className="wb-btns"><i>—</i><i>▢</i><i className="x" style={{ cursor:"pointer" }} onClick={onClose}>✕</i></span>
         </div>
-        <div className="meta">
-          <span className="statpill"><span className={"dot "+p.status}></span>{slabel}</span>
-          <span className="statpill">{p.lang}</span>
-          <span className="statpill">{p.year}</span>
-        </div>
-        <p className="desc">{p.blurb}</p>
-        <div className="changelog">
-          {p.log.map((l,i)=>(<div key={i} className="cl"><b>›</b>{l}</div>))}
+        <div className="lb-body">
+          <div className="meta">
+            <span className="statpill"><span className={"dot "+p.status}></span>{slabel}</span>
+            <span className="statpill">{p.lang}</span>
+            <span className="statpill">{p.year}</span>
+          </div>
+          <p className="desc">{p.blurb}</p>
+          <div className="changelog">
+            {p.log.map((l,i)=>(<div key={i} className="cl"><b>›</b>{l}</div>))}
+          </div>
         </div>
       </div>
     </div>
@@ -94,7 +88,7 @@ function NotesSection() {
   const n = NOTES.find(x=>x.id===sel);
   return (
     <section id="notes" className="section wrap">
-      <SecHead icon="notes" gel={GELS.notes} label="a small digital journal" title="Notes" count={NOTES.length+" entries"} />
+      <SecHead icon="notes" gel={GELS.notes} label="a small digital journal" title="notes" count={NOTES.length+" entries"} />
       <div className="notes-mod glossy">
         <div className="notes-side">
           {NOTES.map(x=>(
@@ -105,11 +99,12 @@ function NotesSection() {
           ))}
         </div>
         <div className="notes-read">
+          <div className="written">written: {n.date}</div>
           <div className="stamp">{n.stamp}</div>
           <h3>{n.title}</h3>
           {n.body.map((para,i)=>(<p key={i}>{para}</p>))}
           {n.code && <div className="code">{n.code}</div>}
-          <div className="sig">— written {n.date.replace(/ /g,'')} · saved automatically</div>
+          <div className="sig">— saved automatically</div>
         </div>
       </div>
     </section>
@@ -120,7 +115,7 @@ function NotesSection() {
 function LinksSection() {
   return (
     <section id="links" className="section wrap">
-      <SecHead icon="links" gel={GELS.links} label="favourite corners of the web" title="Links" />
+      <SecHead icon="links" gel={GELS.links} label="favourite corners of the web" title="links" />
       <div className="cols-2">
         <div className="linkpanel glossy">
           {LINKCATS.map(cat=>(
@@ -141,19 +136,22 @@ function LinksSection() {
           ))}
         </div>
         <div className="collect-panel glossy">
-          <h4>88×31 — collected buttons</h4>
-          <div className="btn88wrap">
-            {BUTTONS88.map((b,i)=>(
-              <span key={i} className="btn88" style={{ background:b.bg, borderColor:b.b }}>
-                <span className="b88-in" style={{ color:b.c }}>{b.txt}</span>
-              </span>
-            ))}
-          </div>
-          <div className="webring">
-            <span style={{ fontFamily:"var(--pixel)", fontSize:9, letterSpacing:".08em", color:"var(--accent)", textTransform:"uppercase" }}>member of the personal web ring</span>
-            <a className="wbtn" href="#" onClick={e=>e.preventDefault()}>‹</a>
-            <a className="wbtn" href="#" onClick={e=>e.preventDefault()}>✦</a>
-            <a className="wbtn" href="#" onClick={e=>e.preventDefault()}>›</a>
+          <WinBar icon={Glyph.stuff} title="badge.collector" side={BUTTONS88.length+" / 50"} accent />
+          <div className="bcoll-body">
+            <div className="btn88wrap">
+              {BUTTONS88.map((b,i)=>(
+                <span key={i} className="btn88" style={{ background:b.bg, borderColor:b.b }}>
+                  <span className="b88-in" style={{ color:b.c }}>{b.txt}</span>
+                </span>
+              ))}
+            </div>
+            <div className="bcoll-foot">
+              <span>collecting stickers like pokemon.</span>
+              <div className="bcoll-bar"><i style={{ width:"100%" }}></i></div>
+              <span>100%</span>
+              <a className="wbtn" href="#" onClick={e=>e.preventDefault()}>‹</a>
+              <a className="wbtn" href="#" onClick={e=>e.preventDefault()}>›</a>
+            </div>
           </div>
         </div>
       </div>
@@ -165,12 +163,12 @@ function LinksSection() {
 function StuffSection() {
   return (
     <section id="stuff" className="section wrap">
-      <SecHead icon="stuff" gel={GELS.stuff} label="a drawer of curiosities" title="Stuff" />
+      <SecHead icon="stuff" gel={GELS.stuff} label="a drawer of curiosities" title="stuff" />
       <div className="grid-stuff">
         {STUFF.map((s,i)=>(
           <div key={i} className="collect glossy">
             {s.kind==="slot" && (
-              <image-slot id={s.id} shape="rect" placeholder="drop image" style={{ width:"100%", height:"116px", display:"block" }}></image-slot>
+              <div className="dicon-tile">{STUFF_ICONS[s.id] || "🗂️"}</div>
             )}
             {s.kind==="palette" && (
               <div className="swatchrow">{s.cols.map((c,j)=>(<i key={j} style={{ background:c }}></i>))}</div>
@@ -181,6 +179,16 @@ function StuffSection() {
             <div className="cap">{s.cap}<small>{s.sub}</small></div>
           </div>
         ))}
+        <div className="collect glossy">
+          <div className="filelist">
+            <div className="fl">readme.txt</div>
+            <div className="fl">todo.txt</div>
+            <div className="fl">ideas.txt</div>
+            <div className="fl">glossy.gif</div>
+            <div className="fl">pixelcat.cur</div>
+          </div>
+          <div className="cap">old snippets<small>~/stuff</small></div>
+        </div>
       </div>
     </section>
   );
@@ -192,8 +200,9 @@ function Jukebox() {
     <div className="jukebox glossy">
       <div className="jb-head">
         <span className="gel sm" style={{ "--gel":GELS.media }}>{Glyph.media}</span>
-        <span className="lab">deokma's jukebox</span>
-        <span className="eq">~ now playing ~</span>
+        <span className="lab">now.playing</span>
+        <span className="eq">— winamp vibes —</span>
+        <span className="wb-btns"><i>—</i><i>▢</i><i className="x">✕</i></span>
       </div>
       <MediaPlayerApp />
     </div>
