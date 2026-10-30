@@ -115,6 +115,14 @@ export function ProjectsSection({ onOpen }) {
           );
         })}
       </ul>
+      <a className="ws-teaser glossy" href="/workshop/">
+        <span className="gel" style={{ "--gel":GELS.workshop }} aria-hidden="true">{Glyph.workshop}</span>
+        <span className="ws-t">
+          <b>workshop.exe</b>
+          <span>3D printing &amp; electronics: finished hardware builds, like an NFC vinyl player.</span>
+        </span>
+        <span className="open" aria-hidden="true">open page ›</span>
+      </a>
     </section>
   );
 }
@@ -157,7 +165,7 @@ export function ProjectModal({ id, onClose }) {
           {d.total > 0 && (
             <div className="pm-dl">
               <span className="ico" aria-hidden="true">{Glyph.download}</span>
-              <b>{fmtNum(d.total)}</b> downloads
+              <b>{fmtNum(d.total)}</b> downloads{p.status === "contrib" ? " (whole project)" : ""}
               <small>
                 Modrinth {fmtNum(d.mr)}{live ? " (live)" : ""}{p.cf ? ` · CurseForge ${fmtNum(d.cf)} (as of ${asOf})` : ""}
                 {mr ? ` · ${fmtNum((live && live[p.mr] || mr).followers)} followers on Modrinth` : ""}
@@ -165,14 +173,14 @@ export function ProjectModal({ id, onClose }) {
             </div>
           )}
 
-          <div className="pm-links">
+          {p.links.length > 0 && <div className="pm-links">
             {p.links.map((l, i) => (
               <a key={l.href} className={"aqua" + (i ? " ghost" : "")} href={l.href} target="_blank" rel="noopener">
                 {l.label}<span className="ico" aria-hidden="true">{Glyph.external}</span>
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             ))}
-          </div>
+          </div>}
 
           {g.length > 0 && (
             <figure className="pm-shot">
@@ -265,7 +273,7 @@ export function GallerySection() {
   const move = React.useCallback((dir) => setOpen(i => (i + dir + SHOTS.length) % SHOTS.length), []);
   return (
     <section id="gallery" className="section wrap" aria-labelledby="gallery-h">
-      <SecHead id="gallery-h" icon="gallery" gel={GELS.gallery} label="screenshots from my mods" title="gallery" count={SHOTS.length + " screenshots"} />
+      <SecHead id="gallery-h" icon="gallery" gel={GELS.gallery} label="screenshots from my projects" title="gallery" count={SHOTS.length + " screenshots"} />
       <ul className="grid-shots">
         {SHOTS.map((s, i) => (
           <li key={s.src} className="collect glossy">

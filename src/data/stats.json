@@ -1,6 +1,102 @@
 {
  "fetchedAt": "2026-10-30",
  "modrinth": {
+  "createtools-n-weapons": {
+   "id": "2aBDweGI",
+   "slug": "createtools-n-weapons",
+   "title": "Create: Tools n Weapons",
+   "downloads": 45010,
+   "followers": 40,
+   "published": "2025-03-16",
+   "updated": "2026-01-09",
+   "license": "MIT",
+   "loaders": [
+    "fabric",
+    "forge",
+    "neoforge"
+   ],
+   "game_versions": [
+    "1.20.1",
+    "1.21.1"
+   ],
+   "client_side": "required",
+   "server_side": "required",
+   "releases": [
+    {
+     "version": "1.0.1-1.21.1",
+     "date": "2026-01-09",
+     "last": "2026-01-09",
+     "loaders": [
+      "neoforge"
+     ],
+     "game_versions": [
+      "1.21.1"
+     ],
+     "changelog": "Added Neoforge version for 1.21.1.\n\nCompatible with Create 6.0.x 1.21.1",
+     "downloads": 22204
+    },
+    {
+     "version": "1.0.1-1.20.1",
+     "date": "2025-03-26",
+     "last": "2025-03-31",
+     "loaders": [
+      "forge",
+      "fabric"
+     ],
+     "game_versions": [
+      "1.20.1"
+     ],
+     "changelog": "Added Forge version for 1.20.1.\n\nCompatible with Create 6.0.x 1.20.1\n\n- Updated harvesting level on all tools",
+     "downloads": 22612
+    },
+    {
+     "version": "1.0.0-1.20.1",
+     "date": "2025-03-18",
+     "last": "2025-03-18",
+     "loaders": [
+      "fabric"
+     ],
+     "game_versions": [
+      "1.20.1"
+     ],
+     "changelog": "The initial release. Adds the tools and weapons with mechanical crafting.",
+     "downloads": 194
+    }
+   ]
+  },
+  "molten-vents-fabric-port": {
+   "id": "62BenJ13",
+   "slug": "molten-vents-fabric-port",
+   "title": "Create: Molten Vents Fabric Port",
+   "downloads": 5290,
+   "followers": 6,
+   "published": "2025-03-13",
+   "updated": "2025-03-13",
+   "license": "MIT",
+   "loaders": [
+    "fabric"
+   ],
+   "game_versions": [
+    "1.20.1"
+   ],
+   "client_side": "required",
+   "server_side": "required",
+   "releases": [
+    {
+     "version": "1.1.2",
+     "date": "2025-03-13",
+     "last": "2025-03-13",
+     "loaders": [
+      "fabric"
+     ],
+     "game_versions": [
+      "1.20.1"
+     ],
+     "changelog": "",
+     "downloads": 5290
+    }
+   ]
+  },
   "notely": {
    "id": "LyRGwLtX",
    "slug": "notely",
@@ -83,7 +179,7 @@
    "id": "CnrVw3tZ",
    "slug": "create-stock-market",
    "title": "Create: Stock Market",
-   "downloads": 21006,
+   "downloads": 21011,
    "followers": 28,
    "published": "2026-05-14",
    "updated": "2026-10-04",
@@ -108,7 +204,7 @@
       "1.21.1"
      ],
      "changelog": "# Fixed\n- **Server crash with Create: Numismatics 1.1.0.** Placing a Vendor, or loading a chunk that contains one, crashed the server and left the world unplayable. Vendors now work with both Numismatics 1.0.x and 1.1.x. Thanks to **radaelilucca** for the first fix!\n- **A broken shop can no longer crash the server.** If a shop mod changes its API again, the error is written to the log and the server keeps running.\n- **Wrong coin prices.** Coin values were shifted by one step, so a price of 1 Crown showed as 1 Cog. All prices now match Numismatics.\n- **Long prices overlapped the Owner and Mode columns.** Prices are now drawn as Numismatics coin icons and always fit their column. Hover a row to see the full price as coins.\n- **\"Add to map\" did nothing on Xaero's Minimap 24+** (\"Couldn't open the Xaero waypoint menu\").\n- **Shops kept their listing after the Vendor or Table Cloth was cleared** or lost its owner.\n- **Top Sellers counted fake sales** whenever an owner edited a Table Cloth offer.\n- **Clicks in the Shops filter sidebar hit the wrong row** when a long section (e.g. Items) was expanded.\n\n# Improved\n- **Fair market prices.** The Market tab now compares Vendor prices per item and quotes them for the most common lot size (\"8 Cog /64\"), so shops selling 1 and 64 items no longer produce a meaningless average.\n- **Item variants are separate stocks.** For example, differently enchanted books each get their own price and history.\n- **Steadier trend arrows.** The latest price is compared with the average of recent snapshots instead of just the previous one.\n- **Better server performance:**\n  - removed a once-per-second scan of every Table Cloth;\n  - opening the shop list triggers a full rescan at most once every 10 seconds;\n  - Display Links reuse cached market data.\n\n# New\n- **Server config** at `serverconfig/stockmarket-server.toml`:\n  - snapshot interval and history length;\n  - trend sensitivity and the \"high activity\" threshold;\n  - how long history of untraded items is kept (7 days by default);\n  - permission level for `/shoplist`;\n  - custom display names for stocks.\n- **Datapack item tags** to control what appears on the market:\n  - `#stockmarket:tradable` acts as a whitelist once it has entries;\n  - `#stockmarket:hidden` always hides an item.\n\n# Translations\n- **Every piece of UI text is translatable now**, so resource packs can translate the whole mod.\n- **Full translations** for Russian (new), Ukrainian, German, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese (Brazil and Portugal), Turkish and Chinese (Simplified and Traditional); Belarusian updated.\n- Want to help? Translate on [Crowdin](https://crowdin.com/project/create-stock-market).\n\n# Compatibility\n- Minecraft 1.21.1, NeoForge\n- Create 6.0.9+\n- Create: Numismatics 1.0.19+ (including 1.1.0)",
-     "downloads": 3318
+     "downloads": 3321
     },
     {
      "version": "1.1.0",
@@ -121,7 +217,7 @@
       "1.21.1"
      ],
      "changelog": "# New\n- **Market Remote** — a handheld item that opens the Stock Market screen from anywhere. Craftable from a Market Terminal.\n- **Create Display Link support** — link a Display Link to a Market Terminal to show live market data on signs, display boards and nixie tubes:\n  - Top Sellers, Top Shops, Most Traded Items\n  - Total Listings, Number of Sellers, Total Sales",
-     "downloads": 15356
+     "downloads": 15357
     },
     {
      "version": "1.0.2",
@@ -168,7 +264,7 @@
    "id": "UgsqlrYU",
    "slug": "charta-casino",
    "title": "Charta: Сasino",
-   "downloads": 14410,
+   "downloads": 14411,
    "followers": 14,
    "published": "2026-04-29",
    "updated": "2026-05-06",
@@ -195,7 +291,7 @@
       "1.21.1"
      ],
      "changelog": "Fixed a bug in the display of games",
-     "downloads": 14318
+     "downloads": 14319
     },
     {
      "version": "1.0.0",
@@ -212,58 +308,25 @@
      "downloads": 91
     }
    ]
-  },
-  "molten-vents-fabric-port": {
-   "id": "62BenJ13",
-   "slug": "molten-vents-fabric-port",
-   "title": "Create: Molten Vents Fabric Port",
-   "downloads": 5289,
-   "followers": 6,
-   "published": "2025-03-13",
-   "updated": "2025-03-13",
-   "license": "MIT",
-   "loaders": [
-    "fabric"
-   ],
-   "game_versions": [
-    "1.20.1"
-   ],
-   "client_side": "required",
-   "server_side": "required",
-   "releases": [
-    {
-     "version": "1.1.2",
-     "date": "2025-03-13",
-     "last": "2025-03-13",
-     "loaders": [
-      "fabric"
-     ],
-     "game_versions": [
-      "1.20.1"
-     ],
-     "changelog": "",
-     "downloads": 5289
-    }
-   ]
   }
  },
  "curseforge": {
   "create-stock-market": {
    "id": 1549447,
    "url": "https://www.curseforge.com/minecraft/mc-mods/create-stock-market",
-   "downloads": 600507,
+   "downloads": 600932,
    "files": 5
   },
   "charta-casino": {
    "id": 1536082,
    "url": "https://www.curseforge.com/minecraft/mc-mods/charta-sasino",
-   "downloads": 15449,
+   "downloads": 15463,
    "files": 2
   },
   "notely": {
    "id": 1510287,
    "url": "https://www.curseforge.com/minecraft/mc-mods/notely",
-   "downloads": 5186,
+   "downloads": 5200,
    "files": 14
   }
  },

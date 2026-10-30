@@ -4,13 +4,26 @@ import { Glyph } from "./icons.jsx";
 import { ABOUT, GELS, PROFILES, PROJECTS, ACTIVITY, STATS, fmtNum, fmtDate, stampDate } from "./data.jsx";
 import { useTotals } from "./live.jsx";
 
+/* Home-page sections plus separate pages (href). */
 export const NAVITEMS = [
   { id:"top", label:"home" },
   { id:"projects", label:"projects" },
   { id:"gallery", label:"gallery" },
   { id:"notes", label:"notes" },
   { id:"links", label:"links" },
+  { id:"workshop", label:"workshop", href:"/workshop/" },
 ];
+
+/* ── Decorative sky (brushed-steel wall glow, grain and vignette) ─────────*/
+export const Sky = React.memo(function Sky() {
+  return (
+    <div id="sky" aria-hidden="true">
+      <div className="glow"></div>
+      <div className="grain"></div>
+      <div className="vig"></div>
+    </div>
+  );
+});
 
 /* Decorative window controls (— ▢ ✕); purely visual, hidden from assistive tech */
 export function WinBtns({ className = "" }) {
@@ -71,10 +84,12 @@ export function Preloader({ onDone }) {
   );
 }
 
-/* Top title-bar with folder tabs */
+/* Top title-bar with folder tabs. On the home page section tabs scroll (onJump);
+   on other pages they link back to the home page sections. */
 export function Nav({ active, onJump }) {
   const [open, setOpen] = React.useState(false);
-  const go = (id) => (e) => { e.preventDefault(); setOpen(false); onJump(id); };
+  const go = (id) => (e) => { if (!onJump) return; e.preventDefault(); setOpen(false); onJump(id); };
+  const hrefOf = (n) => n.href || (onJump ? "#" + n.id : (n.id === "top" ? "/" : "/#" + n.id));
   React.useEffect(() => {
     if (!open) return;
     const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
@@ -85,15 +100,15 @@ export function Nav({ active, onJump }) {
     <nav id="nav" className={open ? "open" : ""} aria-label="Main">
       <div className="wrap">
         <div className="bar glossy">
-          <a className="brand" href="#top" onClick={go("top")} aria-label="deokma.exe, back to top">
+          <a className="brand" href={onJump ? "#top" : "/"} onClick={go("top")} aria-label={onJump ? "deokma.exe, back to top" : "deokma.exe, home page"}>
             <span className="orb" aria-hidden="true"></span>
             <span className="who"><b>deokma.exe</b><small>// personal site v2.0</small></span>
           </a>
           <div className="links" id="nav-links">
             {NAVITEMS.map(n=>(
-              <a key={n.id} href={"#"+n.id} onClick={go(n.id)}
-                className={"navlink"+(active===n.id?" on":"")}
-                aria-current={active===n.id ? "location" : undefined}>{n.label}</a>
+              <a key={n.id} href={hrefOf(n)} onClick={n.href ? undefined : go(n.id)}
+                className={"navlink"+(active===n.id?" on":"")+(n.href?" page":"")}
+                aria-current={active===n.id ? (n.href ? "page" : "location") : undefined}>{n.label}</a>
             ))}
           </div>
           <span className="nav-status"><span className="dot" aria-hidden="true"></span>{ABOUT.status}</span>

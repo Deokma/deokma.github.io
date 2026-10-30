@@ -26,10 +26,11 @@ export function useLiveModrinth() {
   return live;
 }
 
-/* Totals across every project that is published on Modrinth or CurseForge. */
+/* Totals across my own projects published on Modrinth or CurseForge
+   (contributions to other people's mods are not counted). */
 export function useTotals() {
   const live = React.useContext(LiveContext);
-  return PROJECTS.reduce((acc, p) => {
+  return PROJECTS.filter((p) => p.status !== "contrib").reduce((acc, p) => {
     const d = downloadsOf(p, live);
     acc.mr += d.mr; acc.cf += d.cf; acc.total += d.total;
     return acc;

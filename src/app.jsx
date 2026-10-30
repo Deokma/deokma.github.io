@@ -1,19 +1,8 @@
 /* app.jsx — deokma.web shell: sky, preloader, nav scroll-spy, sections */
 import React, { useState, useEffect, useCallback } from "react";
-import { Nav, Hero, SystemLog, Footer, Preloader, shouldBoot } from "./shell.jsx";
+import { Nav, Hero, SystemLog, Footer, Preloader, Sky, shouldBoot } from "./shell.jsx";
 import { ProjectsSection, ProjectModal, GallerySection, NotesSection, LinksSection, Jukebox } from "./sections.jsx";
 import { LiveContext, useLiveModrinth } from "./live.jsx";
-
-/* ── Decorative sky (brushed-steel wall glow, grain and vignette) ─────────*/
-const Sky = React.memo(function Sky() {
-  return (
-    <div id="sky" aria-hidden="true">
-      <div className="glow"></div>
-      <div className="grain"></div>
-      <div className="vig"></div>
-    </div>
-  );
-});
 
 /* ── Scroll spy ───────────────────────────────────────────────────────────*/
 const SECTIONS = ["top","projects","gallery","notes","links"];

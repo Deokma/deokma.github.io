@@ -13,6 +13,7 @@ export const GELS = {
   links:    "#5ec6ff",
   gallery:  "#c98bff",
   media:    "#3f6fe0",
+  workshop: "#ff8a5c",
 };
 
 export const PROFILES = {
@@ -26,7 +27,7 @@ export const ABOUT = {
   handle: "deokma",
   status: "online — tinkering",
   // From the GitHub profile README (github.com/Deokma/Deokma).
-  lede: "I'm Denis, a software engineer focused on C++, systems programming and secure software. In my spare time I build Minecraft mods in Java, mostly addons for Create and Charta, and this is where I keep them.",
+  lede: "I'm Denis, a software engineer focused on C++, systems programming and secure software. In my spare time I build Minecraft mods in Java, mostly addons for Create and Charta, along with Android apps and 3D-printed electronics. This is where I keep them.",
   skills: ["java", "c++", "fabric · neoforge · forge", "create addons", "information security"],
 };
 
@@ -34,22 +35,22 @@ export const ABOUT = {
    status: go = released · wip = in development · contrib = contribution · dead = archived
    mr / cf: keys into STATS.modrinth / STATS.curseforge                          */
 const img = (name, w, h, alt, cap, thumb = true) => ({
-  src: `assets/img/${name}.webp`,
-  thumb: thumb ? `assets/img/${name}-640.webp` : `assets/img/${name}.webp`,
+  src: `/assets/img/${name}.webp`,
+  thumb: thumb ? `/assets/img/${name}-640.webp` : `/assets/img/${name}.webp`,
   w, h, alt, cap,
 });
 
 export const CATEGORIES = [
   { id: "all",     label: "all" },
-  { id: "mods",    label: "minecraft mods" },
-  { id: "tools",   label: "tools" },
+  { id: "mods",    label: "game mods" },
+  { id: "tools",   label: "apps & tools" },
 ];
 
 export const PROJECTS = [
   {
     id: "stockmarket", cat: "mods", status: "go",
     name: "Create: Stock Market", file: "create-stockmarket",
-    icon: "assets/img/stockmarket-icon.webp",
+    icon: "/assets/img/stockmarket-icon.webp",
     lang: "Java", years: "2026", license: "AGPL-3.0",
     platform: ["NeoForge", "MC 1.21.1", "client + server"],
     mr: "create-stock-market", cf: "create-stock-market", repo: "create-stockmarket",
@@ -83,7 +84,7 @@ export const PROJECTS = [
   {
     id: "casino", cat: "mods", status: "go",
     name: "Charta: Casino", file: "charta-casino-addon",
-    icon: "assets/img/casino-icon.webp",
+    icon: "/assets/img/casino-icon.webp",
     lang: "Java", years: "2026", license: "MPL-2.0",
     platform: ["Fabric", "NeoForge", "MC 1.21.1", "client + server"],
     mr: "charta-casino", cf: "charta-casino", repo: "charta-casino-addon",
@@ -115,7 +116,7 @@ export const PROJECTS = [
   {
     id: "notely", cat: "mods", status: "go",
     name: "Notely", file: "Notely",
-    icon: "assets/img/notely-icon.webp",
+    icon: "/assets/img/notely-icon.webp",
     lang: "Java", years: "2026", license: "MPL-2.0",
     platform: ["Fabric", "Forge", "NeoForge", "MC 1.18.2 – 26.1", "client-only"],
     mr: "notely", cf: "notely", repo: "Notely",
@@ -145,7 +146,7 @@ export const PROJECTS = [
   {
     id: "moltenvents", cat: "mods", status: "go",
     name: "Create: Molten Vents — Fabric Port", file: "create-molten-vents-fabric",
-    icon: "assets/img/moltenvents-icon.webp",
+    icon: "/assets/img/moltenvents-icon.webp",
     lang: "Java", years: "2025", license: "MIT",
     platform: ["Fabric", "MC 1.20.1", "client + server"],
     mr: "molten-vents-fabric-port", repo: "create-molten-vents-fabric",
@@ -184,6 +185,46 @@ export const PROJECTS = [
     links: [{ kind: "github", label: "Source", href: "https://github.com/Deokma/waystones-model-replacer" }],
   },
   {
+    id: "stardew3d", cat: "mods", status: "wip",
+    name: "Stardew Valley 3D", file: "starwdew3d", emoji: "🌱",
+    lang: "C#", years: "2026",
+    platform: ["SMAPI 4", "Stardew Valley 1.6"],
+    blurb: "My rework of PixelReyn's SMAPI mod that renders Stardew Valley in 3D, rebuilding the world as textured 3D geometry from the live game.",
+    about: [
+      "Stardew Valley 3D, started by PixelReyn, is a SMAPI mod that rebuilds the farm and towns as textured 3D geometry (boxes, planes and billboards) straight from the running game and renders it with MonoGame, with hardware instancing for repeated tiles.",
+      "My version adds a location editor (F4) that lists every tile and object type in the current location and lets you change how each one is rendered, and reworks the rendering pipeline and the world builder. It is not published yet.",
+    ],
+    stack: ["C#", ".NET", "SMAPI", "MonoGame", "HLSL"],
+    links: [{ kind: "github", label: "Original by PixelReyn", href: "https://github.com/pixelreyn/starwdew3d" }],
+  },
+  {
+    id: "toolsnweapons", cat: "mods", status: "contrib",
+    name: "Create: Tools n Weapons", file: "create-tools-n-weapons",
+    icon: "/assets/img/toolsnweapons-icon.webp",
+    lang: "Java", years: "2025", license: "MIT",
+    platform: ["Fabric", "Forge", "NeoForge", "MC 1.20.1 · 1.21.1"],
+    mr: "createtools-n-weapons", repo: "create-tools-n-weapons",
+    blurb: "A Create addon with gear-styled tools and weapons, published by the Brassburg team. I wrote its break mode: vein mining and tree felling.",
+    about: [
+      "Create: Tools n Weapons, started by Tur87 and published by the Brassburg team, adds a Gear Sword, Pickaxe, Axe, Shovel and Hoe in Create's style, crafted on the Mechanical Crafter and slightly stronger than netherite.",
+      "I wrote the break mode for the Fabric 1.20.1 version: press V to toggle it, and the Gear Pickaxe mines a whole connected ore vein while the Gear Axe fells the whole tree. The number of blocks is capped in a config file, every block broken costs durability, and a HUD indicator shows when the mode is on.",
+    ],
+    features: [
+      "Break mode toggled with V (rebindable), with a HUD indicator",
+      "Gear Pickaxe: mines every connected block of the same ore",
+      "Gear Axe: fells every connected log of the tree",
+      "Configurable block limit and durability cost per block",
+    ],
+    stack: ["Java", "Fabric API", "Create (Fabric)"],
+    links: [
+      { kind: "modrinth", label: "Modrinth", href: "https://modrinth.com/mod/createtools-n-weapons" },
+      { kind: "github", label: "Source", href: "https://github.com/Brassburg/create-tools-n-weapons" },
+    ],
+    gallery: [
+      img("toolsnweapons-set", 1280, 673, "The five gear tools (sword, pickaxe, axe, shovel and hoe) displayed on stands", "The gear tool set"),
+    ],
+  },
+  {
     id: "btamap", cat: "mods", status: "contrib",
     name: "BTA Minimap: PNG map export", file: "BTA-Map", emoji: "🗺️",
     lang: "Java", years: "2025",
@@ -197,6 +238,40 @@ export const PROJECTS = [
       { kind: "github", label: "My fork", href: "https://github.com/Deokma/BTA-Map" },
       { kind: "modrinth", label: "Original mod", href: "https://modrinth.com/mod/bta-minimap" },
     ],
+  },
+  {
+    id: "metro", cat: "tools", status: "wip", statusLabel: "unreleased",
+    name: "Minsk Metro", file: "Metro", emoji: "🚇",
+    lang: "Kotlin", years: "2026",
+    platform: ["Android", "Jetpack Compose"],
+    blurb: "An Android app for the Minsk metro: a live map with moving trains, departures, a route planner and travel-card reminders.",
+    about: [
+      "The metro doesn't publish live train positions, so the app works them out from the official timetables on metropoliten.by: the morning and evening departure PDFs, the daytime interval tables and the end-to-end travel times. A simulator turns them into every run of the day and moves the trains along the map in real time.",
+      "Tap a station for the next departures in both directions and the first and last trains, or tap a train for its timetable. The route planner (Connection Scan) counts waiting and transfer time, and the time machine replays any day at ×10 or ×60. Travel cards are checked on metropoliten.by, with reminders before they run out. Russian and Belarusian.",
+    ],
+    features: [
+      "Schematic and real-geography map modes with trains moving in real time",
+      "Next departures, first and last trains, and transfers for every station",
+      "Station-to-station routes with waiting and transfer time, highlighted on the map",
+      "Travel cards checked by number, with expiry and low-balance notifications",
+      "Home-screen widget with the next trains from your station",
+      "Belarusian public holidays treated as weekends; timetable updated weekly",
+    ],
+    stack: ["Kotlin", "Jetpack Compose", "Glance", "WorkManager", "PDFBox", "Robolectric"],
+    links: [],
+    gallery: [
+      img("metro-map-route-station", 1280, 720, "Three app screens: the metro map with trains on all three lines, a route from Nemiga to Uruchye, and next departures at Kastrychnitskaya", "Map, route and departures"),
+      img("metro-dark-city-be", 1280, 720, "Three app screens: the map in dark mode at night, the real-geography map mode, and a station card in Belarusian", "Dark mode, city map and Belarusian"),
+    ],
+  },
+  {
+    id: "brassburgsite", cat: "tools", status: "dead", statusLabel: "draft",
+    name: "Brassburg website draft", file: "BrassburgWebSite", emoji: "🌐",
+    lang: "HTML + Go", years: "2024",
+    blurb: "An early landing page for the Brassburg Create server: server status, a gallery, a trailer and a step-by-step modpack install guide.",
+    about: ["A 2024 draft of a landing page for Brassburg, the Create Mod SMP I develop for: server status, gallery, trailer and two ways to install the modpack (Modrinth App or any launcher), set in a Minecraft-style font, with a small Go server to host it."],
+    stack: ["HTML", "CSS", "Go"],
+    links: [],
   },
   {
     id: "vortex", cat: "tools", status: "wip", statusLabel: "experimental",
@@ -249,7 +324,7 @@ export const stampDate = (iso) => iso.split("-").join(" · ");
 const LOADER_NAME = { fabric: "Fabric", forge: "Forge", neoforge: "NeoForge", quilt: "Quilt" };
 export const loaderList = (ls) => ls.map((l) => LOADER_NAME[l] || l).join(", ");
 
-export const RELEASES = PROJECTS.filter((p) => p.mr).flatMap((p) => {
+export const RELEASES = PROJECTS.filter((p) => p.mr && p.status === "go").flatMap((p) => {
   const rel = STATS.modrinth[p.mr].releases;
   return rel.map((r, i) => ({
     id: `${p.mr}@${r.version}`, project: p, version: r.version,
@@ -306,4 +381,41 @@ export const BUTTONS88 = [
   { txt:"POWERED BY\nCAFFEINE", bg:"linear-gradient(180deg,#e9dcc8,#9c7a4f)", c:"#fff", b:"#6a4f2f" },
   { txt:"LINUX\nINSIDE", bg:"linear-gradient(180deg,#cfd8ff,#5a6fe0)", c:"#fff", b:"#3a4ab0" },
   { txt:"KEEP THE\nWEB WEIRD", bg:"linear-gradient(135deg,#c98bff,#5ec6ff)", c:"#fff", b:"#7a3ab0" },
+];
+
+/* ── Workshop: 3D printing & electronics (separate page, /workshop/) ──────
+   Finished builds only: no schematics, firmware or print files are published. */
+export const WORKSHOP = [
+  {
+    id: "vinyl", status: "go", statusLabel: "built",
+    name: "NFC Vinyl Player", file: "nfc-vinyl", years: "2026",
+    tagline: "A miniature Technics-style turntable that plays music from NFC-tagged mini records.",
+    image: { src: "/assets/img/vinyl-player.webp", small: "/assets/img/vinyl-player-800.webp", w: 1424, h: 882,
+             alt: "Render of the NFC vinyl player: a grey deck on a black base with a black record and an orange label on the platter, a red volume knob and a START/STOP button" },
+    about: [
+      "Put a record on the platter and its track starts. Lift it off and the music pauses; put the same record back and it carries on from the same spot. It runs on its own, with no computer or phone involved.",
+      "Each record is a 100 mm printed disc with an NFC tag hidden in its centre, read through 4 mm of plastic platter. A new record is taught its track right on the player: hold START/STOP for three seconds, step to the track and hold again to save.",
+    ],
+    how: [
+      ["Record on the platter", "plays its track, or resumes where it stopped"],
+      ["Record lifted off", "pauses after 0.6 s"],
+      ["START/STOP", "pause and resume; restarts a finished track"],
+      ["Left knob", "volume, capped to protect the small speakers"],
+      ["Hold START/STOP 3 s", "assign a track to the record on the platter"],
+    ],
+    specs: [
+      ["Footprint", "180 × 130 mm at the base"],
+      ["Records", "Ø 100 mm, 2.4 mm thick, NFC tag inside"],
+      ["Sound", "stereo, two side speakers; 3.5 mm output with a speaker cut-off switch"],
+      ["Music", "MP3 files on a microSD card"],
+      ["Power", "one USB-C cable"],
+      ["Case", "3D-printed in matte PLA"],
+    ],
+    stack: ["Arduino Nano", "RC522 NFC reader", "DFPlayer Mini", "PAM8403 amplifier", "3D-printed case"],
+    extras: [
+      "A matching comb stand holds ten records, leaned back at 15° (129 × 96 × 18 mm).",
+      "Version 2.0 is being designed: all the electronics on a single board and a seamless one-piece case.",
+    ],
+    credit: "The case is adapted from “Vinyl Record Coaster Turntable Stand” by Fixit7650 on MakerWorld; the electronics, records and firmware are my own.",
+  },
 ];

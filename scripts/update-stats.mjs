@@ -12,7 +12,7 @@ import { writeFile } from "node:fs/promises";
 
 const UA = "Deokma/deokma.github.io (stats script; github.com/Deokma)";
 
-const MODRINTH = ["create-stock-market", "charta-casino", "notely", "molten-vents-fabric-port"];
+const MODRINTH = ["create-stock-market", "charta-casino", "notely", "molten-vents-fabric-port", "createtools-n-weapons"];
 const CURSEFORGE = { "create-stock-market": 1549447, "charta-casino": 1536082, "notely": 1510287 };
 const GITHUB_REPOS = [
   "create-stockmarket", "charta-casino-addon", "Notely", "create-molten-vents-fabric",
