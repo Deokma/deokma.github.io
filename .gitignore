@@ -3,9 +3,11 @@ Thumbs.db
 .DS_Store
 .thumbnail
 
-# Local image-slot sidecar (runtime-only, not served as part of the site)
-*.image-slots.state.json
-.image-slots.state.json
+# Dependencies (only needed to build assets/app.js)
+node_modules/
+
+# Local editor / agent settings
+.claude/
 
 # Old prototype kept around for reference, not part of the published site
 _archive_os/
