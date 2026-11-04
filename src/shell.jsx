@@ -12,7 +12,11 @@ export const NAVITEMS = [
   { id:"notes", label:"notes" },
   { id:"links", label:"links" },
   { id:"workshop", label:"workshop", href:"/workshop/" },
+  { id:"ports", label:"ports", href:"/ports/" },
 ];
+
+/* The places of the system: each page is its own place, the nav bar stays on top of all. */
+export const PLACES = { desktop:"~/desktop", workbench:"~/workbench", handheld:"~/handheld" };
 
 /* ── Decorative sky (brushed-steel wall glow, grain and vignette) ─────────*/
 export const Sky = React.memo(function Sky() {
@@ -86,7 +90,7 @@ export function Preloader({ onDone }) {
 
 /* Top title-bar with folder tabs. On the home page section tabs scroll (onJump);
    on other pages they link back to the home page sections. */
-export function Nav({ active, onJump }) {
+export function Nav({ active, onJump, place = "desktop" }) {
   const [open, setOpen] = React.useState(false);
   const go = (id) => (e) => { if (!onJump) return; e.preventDefault(); setOpen(false); onJump(id); };
   const hrefOf = (n) => n.href || (onJump ? "#" + n.id : (n.id === "top" ? "/" : "/#" + n.id));
@@ -102,7 +106,7 @@ export function Nav({ active, onJump }) {
         <div className="bar glossy">
           <a className="brand" href={onJump ? "#top" : "/"} onClick={go("top")} aria-label={onJump ? "deokma.exe, back to top" : "deokma.exe, home page"}>
             <span className="orb" aria-hidden="true"></span>
-            <span className="who"><b>deokma.exe</b><small>// personal site v2.0</small></span>
+            <span className="who"><b>deokma.exe</b><small>{PLACES[place]}</small></span>
           </a>
           <div className="links" id="nav-links">
             {NAVITEMS.map(n=>(

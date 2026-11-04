@@ -1,8 +1,16 @@
 # deokma.web
 
-My personal homepage at **https://deokma.github.io/**: a Y2K, brushed-steel desktop with my
-Minecraft mods, apps and tools, screenshots and release notes, plus a workshop page for
-3D printing and electronics builds.
+My personal homepage at **https://deokma.github.io/**, built as a small system of places:
+
+- the **desktop** (`/`): a Y2K, brushed-steel desktop with my Minecraft mods, apps and tools,
+  screenshots and release notes;
+- the **workbench** (`/workshop/`): 3D printing and electronics builds on a cutting mat, with
+  pins on their parts and paper notes around them;
+- the **handheld** (`/ports/`): my PortMaster ports, picked on the screen of a handheld
+  console, with a printed manual for each.
+
+The nav bar is the system layer and stays on top of every place; where the browser supports
+cross-document view transitions, moving between places animates.
 
 It's a static site: React components written in JSX under `src/`, bundled by esbuild into a
 single `assets/app.js` that is committed to the repo, so GitHub Pages serves it as-is
@@ -12,17 +20,21 @@ without a build on their side.
 
 ```
 index.html            home page (meta tags, fonts, no-JS fallback)
-workshop/index.html   workshop page: 3D printing & electronics
+workshop/index.html   the workbench: 3D printing & electronics
+ports/index.html      the handheld: PortMaster ports
 404.html              page shown by GitHub Pages for unknown URLs
-site.css              all styles and theme tokens
+site.css              shared styles and theme tokens (every page)
+places.css            the workbench and handheld scenes (only those two pages)
 src/
   main.jsx            entry point; picks the page from <body data-page="…">
   app.jsx             home page: preloader, nav scroll-spy, sections
-  workshop.jsx        workshop page (finished builds, no schematics or print files)
+  workshop.jsx        the workbench (finished builds, no schematics or print files)
+  ports.jsx           the handheld: launcher on the console screen + manual
+  places.jsx          useDepth(): pointer parallax for the layers of a place
   shell.jsx           nav, hero, system.log, taskbar footer
   sections.jsx        projects, project window, gallery, release notes, links
   mediaplayer.jsx     the "now.playing" mod player + visualizer
-  data.jsx            ALL site content: projects, workshop builds, links, badges
+  data.jsx            ALL site content: projects, workshop builds, ports, links, badges
   data/stats.json     download counts + release history snapshot (generated)
   live.jsx            refreshes Modrinth counts in the browser
 assets/
@@ -47,7 +59,12 @@ npm run build    # writes assets/app.js; run this before committing
 
 - **Projects, links, text**: edit `src/data.jsx`, then `npm run build`.
 - **Workshop builds**: add an entry to `WORKSHOP` in `src/data.jsx`. Image paths start with
-  `/` because the site has more than one page.
+  `/` because the site has more than one page. `parts` are the numbered pins on the image
+  (`x` / `y` in percent of the image); each `how` row names the pin it belongs to.
+- **Ports**: add an entry to `PORTS` in `src/data.jsx`. A port with `install` gets the full
+  two-page manual (install, controls, lab notes, numbers); one without gets a single page.
+  Without `cover`, the launcher draws a generated cover from `art` (no game assets).
+  Ports open directly with `/ports/#<id>`.
 - **A new page**: copy `workshop/index.html`, set its `data-page`, and register the
   component in `PAGES` in `src/main.jsx`.
 - **Download counts and release notes**: `npm run stats`, then `npm run build`.
