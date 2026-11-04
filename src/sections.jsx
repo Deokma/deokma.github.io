@@ -115,14 +115,28 @@ export function ProjectsSection({ onOpen }) {
           );
         })}
       </ul>
-      <a className="ws-teaser glossy" href="/workshop/">
-        <span className="gel" style={{ "--gel":GELS.workshop }} aria-hidden="true">{Glyph.workshop}</span>
-        <span className="ws-t">
-          <b>workshop.exe</b>
-          <span>3D printing &amp; electronics: finished hardware builds, like an NFC vinyl player.</span>
-        </span>
-        <span className="open" aria-hidden="true">open page ›</span>
-      </a>
+      <ul className="portals" aria-label="Other places on this site">
+        <li>
+          <a className="portal glossy" href="/workshop/">
+            <span className="portal-scene bench" aria-hidden="true"><i className="mini-rec"></i></span>
+            <span className="portal-t">
+              <b>~/workbench</b>
+              <span>3D printing &amp; electronics: finished hardware builds, like an NFC vinyl player.</span>
+            </span>
+            <span className="open" aria-hidden="true">go ›</span>
+          </a>
+        </li>
+        <li>
+          <a className="portal glossy" href="/ports/">
+            <span className="portal-scene hand" aria-hidden="true"><i className="mini-hh"></i></span>
+            <span className="portal-t">
+              <b>~/handheld</b>
+              <span>PortMaster ports: PC games on Linux handhelds, like Everlasting Summer.</span>
+            </span>
+            <span className="open" aria-hidden="true">go ›</span>
+          </a>
+        </li>
+      </ul>
     </section>
   );
 }

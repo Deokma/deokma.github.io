@@ -341,6 +341,7 @@ export const ACTIVITY = [
     sub: `${loaderList(r.loaders)} · ${r.game_versions.length > 2 ? r.game_versions[0] + "–" + r.game_versions[r.game_versions.length - 1] : r.game_versions.join(", ")}`,
   })),
   { ts: STATS.github["waystones-model-replacer"]?.pushed || "2026-06-12", k: "build", v: "Waystones Model Replacer", sub: "in development" },
+  { ts: "2026-11-04", k: "port", v: "Everlasting Summer for PortMaster", sub: "Anbernic RG40XX H · Ren'Py 8.3.4" },
 ].sort((a, b) => b.ts.localeCompare(a.ts)).slice(0, 5);
 
 /* ── Links ────────────────────────────────────────────────────────────────*/
@@ -396,12 +397,18 @@ export const WORKSHOP = [
       "Put a record on the platter and its track starts. Lift it off and the music pauses; put the same record back and it carries on from the same spot. It runs on its own, with no computer or phone involved.",
       "Each record is a 100 mm printed disc with an NFC tag hidden in its centre, read through 4 mm of plastic platter. A new record is taught its track right on the player: hold START/STOP for three seconds, step to the track and hold again to save.",
     ],
+    /* Pins on the render: x / y are percentages of the image. `how` rows point at a pin. */
+    parts: [
+      { id: "platter", n: 1, x: 45.6, y: 36.4, label: "platter", note: "NFC reader under 4 mm of plastic" },
+      { id: "button",  n: 2, x: 14.2, y: 39.6, label: "START/STOP", note: "pause, resume, teach a record" },
+      { id: "knob",    n: 3, x: 18.8, y: 32.2, label: "volume knob", note: "capped for the small speakers" },
+    ],
     how: [
-      ["Record on the platter", "plays its track, or resumes where it stopped"],
-      ["Record lifted off", "pauses after 0.6 s"],
-      ["START/STOP", "pause and resume; restarts a finished track"],
-      ["Left knob", "volume, capped to protect the small speakers"],
-      ["Hold START/STOP 3 s", "assign a track to the record on the platter"],
+      ["Record on the platter", "plays its track, or resumes where it stopped", "platter"],
+      ["Record lifted off", "pauses after 0.6 s", "platter"],
+      ["START/STOP", "pause and resume; restarts a finished track", "button"],
+      ["Left knob", "volume, capped to protect the small speakers", "knob"],
+      ["Hold START/STOP 3 s", "assign a track to the record on the platter", "button"],
     ],
     specs: [
       ["Footprint", "180 × 130 mm at the base"],
@@ -412,10 +419,103 @@ export const WORKSHOP = [
       ["Case", "3D-printed in matte PLA"],
     ],
     stack: ["Arduino Nano", "RC522 NFC reader", "DFPlayer Mini", "PAM8403 amplifier", "3D-printed case"],
-    extras: [
-      "A matching comb stand holds ten records, leaned back at 15° (129 × 96 × 18 mm).",
-      "Version 2.0 is being designed: all the electronics on a single board and a seamless one-piece case.",
-    ],
+    stand: "A matching comb stand holds ten records, leaned back at 15° (129 × 96 × 18 mm).",
+    next: { title: "NFC Vinyl Player 2.0", text: "Being designed: all the electronics on a single board and a seamless one-piece case." },
     credit: "The case is adapted from “Vinyl Record Coaster Turntable Stand” by Fixit7650 on MakerWorld; the electronics, records and firmware are my own.",
+  },
+];
+
+/* ── Handheld: PortMaster ports (separate page, /ports/) ──────────────────
+   Games I get running on Linux handhelds through PortMaster (portmaster.games).
+   The games themselves are never included; players bring their own copy.
+   Everlasting Summer facts come from github.com/Deokma/portmaster-everlasting-summer.
+   Graveyard Keeper and Tiny Bunny have no public repo yet: only the game facts are
+   filled in; add device, notes and links here when they are published. */
+const ES_REPO = "https://github.com/Deokma/portmaster-everlasting-summer";
+
+export const PORTS = [
+  {
+    id: "everlastingsummer", status: "go", statusLabel: "playable",
+    title: "Everlasting Summer", file: "everlastingsummer",
+    game: { dev: "Soviet Games", year: "2013", genre: "visual novel", engine: "Ren'Py 7.4", price: "free on Steam" },
+    device: "Anbernic RG40XX H · 640×480 · 1 GB RAM · Knulli",
+    cover: { src: "/assets/img/port-everlastingsummer-cover.webp", w: 460, h: 215,
+             alt: "Everlasting Summer cover art: five of the game's heroines in pioneer uniforms under a summer sky" },
+    shot: { src: "/assets/img/port-everlastingsummer-shot.webp", w: 640, h: 480,
+            alt: "The game's main menu, an information board in the pioneer camp, at the handheld's 640×480 resolution",
+            cap: "main menu at 640×480, as the handheld shows it" },
+    tagline: "The Steam release of the pioneer-camp visual novel, Workshop mods included, on a 1 GB Linux handheld.",
+    about: [
+      "Everlasting Summer (Бесконечное лето) is Soviet Games' visual novel about a week in a Soviet pioneer camp. The Steam release is built on Ren'Py 7.4 and Python 2, but PortMaster only ships Ren'Py 8 runtimes, so the port runs the game unchanged on Ren'Py 8.3.4 with a compatibility layer for everything Python 3 rejects.",
+      "On a 3.5-inch 640×480 screen with 1 GB of RAM it turns GPU rendering back on, scales the text up, draws its own mouse cursor for the sticks, loads only the translations you pick and shrinks the game's 1080p images to the screen on the first start. Steam Workshop mods work too, with a mod manager on the device.",
+    ],
+    features: [
+      "Runs the Ren'Py 7.4 game unchanged on PortMaster's Ren'Py 8.3.4 runtime",
+      "GPU rendering, full screen or letterboxed, text scaled for 3.5\" screens",
+      "Both sticks move a cursor the game draws itself; L1 / R1 page through lists",
+      "Steam Workshop mods: drop a mod folder in, Ren'Py 7 code included",
+      "An on-device mod manager switches mods off or deletes them",
+      "Optional PC tools prepare the game and mods faster",
+    ],
+    install: [
+      "Install PortMaster on the handheld and open it once.",
+      "Put everlastingsummer.zip, still zipped, in PortMaster's autoinstall folder and open PortMaster. It installs the port and its cover.",
+      "Copy everything inside the Steam install's game folder, except mods, cache and saves, into ports/everlastingsummer/game/.",
+      "Start Everlasting Summer from Ports. The first start fetches the runtime and prepares the game for the screen, once (about 8 minutes).",
+    ],
+    controls: [
+      ["A", "advance / select"], ["B · Start · Select", "game menu / back"], ["X", "hide text box"],
+      ["Y", "toggle skip"], ["L1 / R1", "rollback / forward; page lists"], ["R2 (hold)", "skip"],
+      ["D-pad", "move between choices"], ["sticks", "mouse cursor"], ["L2 or L3", "click"], ["R3", "right click"],
+    ],
+    lab: [
+      ["Memory", "Ren'Py loads every language's dialogue at startup: 38 of the 44 MB of compiled script. With all eight translations the game takes 699 MB and 54 s to load; with Russian only, 368 MB and 11 s. The launcher parks the translations you don't use."],
+      ["Images", "The first start rebuilds archive.rpa with every image shrunk to the screen height: 749 MB becomes 385 MB in about 3 minutes, one process per core of the H700."],
+      ["GPU", "The runtime ships with GL switched off and draws in software. The patch turns it back on and uses gles2 on the Mali-G31."],
+      ["Cursor", "The Mali framebuffer driver has no hardware cursor, so the game draws its own, bigger one for a small screen."],
+      ["Mods", "14 of the 16 Workshop mods tried start and play their opening on the handheld."],
+    ],
+    numbers: {
+      caption: "Install paths on the RG40XX H, English kept",
+      head: ["game folder", "first start", "later starts", "RAM in play"],
+      rows: [
+        ["copied from Steam, not prepared", "75 s", "42 s", "≈ 590 MB"],
+        ["prepared on the handheld", "≈ 8 min", "≈ 40 s", "≈ 455 MB"],
+        ["prepared with the PC tool", "—", "39 s", "≈ 455 MB"],
+      ],
+    },
+    links: [
+      { label: "Source & install guide", href: ES_REPO },
+      { label: "Get the game (free)", href: "https://store.steampowered.com/app/331470/" },
+      { label: "PortMaster", href: "https://portmaster.games/" },
+    ],
+    license: "MIT (the port's own code)",
+    credit: "Everlasting Summer and its art belong to Soviet Games. The game is not included: you add your own copy. Not affiliated with Soviet Games.",
+  },
+  {
+    id: "graveyardkeeper", status: "go", statusLabel: "ported",
+    title: "Graveyard Keeper", file: "graveyardkeeper",
+    game: { dev: "Lazy Bear Games", year: "2018", genre: "management sim", engine: "Unity" },
+    art: { from: "#203a2c", to: "#0b1510", ink: "#f2b25c", glyph: "grave" },
+    tagline: "Lazy Bear Games' medieval graveyard management game, on a Linux handheld through PortMaster.",
+    about: [
+      "Graveyard Keeper is a medieval graveyard management game by Lazy Bear Games, published by tinyBuild in 2018.",
+    ],
+    soon: "The write-up, install guide and source for this port are on the way.",
+    links: [{ label: "PortMaster", href: "https://portmaster.games/" }],
+    credit: "Graveyard Keeper belongs to Lazy Bear Games and tinyBuild. The game is not included.",
+  },
+  {
+    id: "tinybunny", status: "wip", statusLabel: "porting",
+    title: "Tiny Bunny", file: "tinybunny",
+    game: { dev: "Saikono", genre: "horror visual novel" },
+    art: { from: "#26304a", to: "#090c16", ink: "#e9eef8", glyph: "bunny" },
+    tagline: "Saikono's horror visual novel, being ported to Linux handhelds through PortMaster.",
+    about: [
+      "Tiny Bunny (Зайчик) is a horror visual novel by Saikono. The port is in progress.",
+    ],
+    soon: "Work in progress: notes and an install guide will follow when it's playable.",
+    links: [{ label: "PortMaster", href: "https://portmaster.games/" }],
+    credit: "Tiny Bunny belongs to Saikono. The game is not included.",
   },
 ];
